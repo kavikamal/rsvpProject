@@ -31,16 +31,4 @@ function submitRSVP(){
 
 // When event form button is clicked
 document.getElementById("rsvpBtn").onclick = submitRSVP;
-// When View Guest List link is clicked
-// document.getElementById("viewGuestList").onclick = function viewGuest(){
-//     fetch('/guest')
-//         .then(response => response.json())
-//         .then(rsvp => {      
-//         console.log(rsvp);
-//         const json = JSON.stringify(rsvp);
-//         // JSON.parse(json)
-//     })
-//     .catch(error => {
-//         console.log("A network error has occurred when attempting to perform the GET request:", error)
-//     })
-// }
+
