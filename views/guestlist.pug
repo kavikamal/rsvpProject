@@ -8,11 +8,11 @@ html
         h1 Guest List
     div
         h4 Attending
-        each rsvp in arrayOfAttending
+        each name in attending
             div
-                p rsvp.name
+                p #{name}
     div
         h4 Not Attending
-        each rsvp in arrayOfNotAttending
+        each name in notAttending
             div
-                p rsvp.name
+                p #{name}

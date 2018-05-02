@@ -1,24 +1,6 @@
-// var mongoose = require('mongoose');
- 
-// mongoose.connect('mongodb://localhost:/eventdb', function (err) {
-//     if (err) throw err; 
-//     console.log('Successfully connected');  
-//  });
-
-//  var rsvpSchema = mongoose.Schema({
-//     name: String,
-//     email: String,
-//     attending: Boolean,
-//     noOfGuests: Number
-// });
-
-// var rsvpData = mongoose.model('Rsvp', rsvpSchema);
-
-
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-
 
 const port = 3000;
 app.use(express.json());
@@ -45,7 +27,7 @@ var Response = mongoose.model('Response', responseSchema);
 
 // Renders the main page with RSVP form
 app.get('/', function (req, res) {
-    res.render('main.pug', {title: 'Event RSVP'});
+    res.render('main', {title: 'Event RSVP'});
 })
 
 app.post('/reply', function (req, res, next) {
@@ -67,29 +49,17 @@ app.post('/reply', function (req, res, next) {
         });
 })
 
-app.get('/guests', function (req, res) {
-    
-    let attendingArray ;
-     Response.find({attending: true},function(err, attending) {
-        if (err){ res.send(err);}
-            
-        console.log("attending----",attending);
-        res.render('guestlist.pug', {title: 'Guest List', arrayOfAttending: attending});   
-    });
-    // let notAttendingArray = Response.find({'attending': false},function(err, notAttending) {
-    //         if (err)
-    //             res.send(err);
-    //             return notAttending;
-    // })
-    // console.log("hello",attendingArray);
-    // res.render('guestlist.pug', {title: 'Guest List', arrayOfAttending: attendingArray, arrayOfNotAttending: notAttendingArray});   
-   
+app.get('/guests', function (req, res) {  
+    let attending = [];
+    let notAttending = [];
+    Response.find(function(err, responses) {
+        console.log(responses);
+        responses.map( response => {
+            response.attending ? attending.push(response.name) : notAttending.push(response.name);
+        });
+        res.render('guestlist', { title: 'Guest List',attending:attending, notAttending:notAttending });
+    }); 
 });
-
-    // var attendingQuery = Response.find({'attending': true});
-    // var notAttendingQuery = Response.find({'attending': false});
-    // res.render('guestlist.pug', {title: 'Guest List', arrayOfAttending: attendingQuery, arrayOfNotAttending: notAttendingQuery});
-//})
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
