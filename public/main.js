@@ -1,5 +1,5 @@
 // When event form button is clicked
-// document.getElementById("rsvpBtn").onclick = submitRSVP;
+ 
 
 function submitRSVP(){
     let name = document.getElementById("name").value;
@@ -29,6 +29,8 @@ function submitRSVP(){
     })
 }
 
+// When event form button is clicked
+document.getElementById("rsvpBtn").onclick = submitRSVP;
 // When View Guest List link is clicked
 // document.getElementById("viewGuestList").onclick = function viewGuest(){
 //     fetch('/guest')
